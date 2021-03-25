@@ -296,7 +296,7 @@ impl Rcc {
         while self.rb.csr.read().lsirdy().bit_is_clear() {}
     }
 
-    pub(crate) fn unlock_rtc(&self) {
+    pub(crate) fn unlock_backup_domain(&self) {
         self.rb.apbenr1.modify(|_, w| w.pwren().set_bit());
         let pwr = unsafe { &(*PWR::ptr()) };
         pwr.cr1.modify(|_, w| w.dbp().set_bit());
@@ -313,7 +313,7 @@ impl Rcc {
             .apbenr1
             .modify(|_, w| w.rtcapben().set_bit().pwren().set_bit());
         self.rb.apbsmenr1.modify(|_, w| w.rtcapbsmen().set_bit());
-        self.unlock_rtc();
+        self.unlock_backup_domain();
         self.rb.bdcr.modify(|_, w| w.bdrst().set_bit());
         self.rb.bdcr.modify(|_, w| unsafe {
             w.rtcsel()

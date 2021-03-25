@@ -60,6 +60,7 @@ pub mod rng;
 pub mod rtc;
 pub mod serial;
 pub mod spi;
+pub mod tamp;
 pub mod time;
 pub mod timer;
 pub mod watchdog;

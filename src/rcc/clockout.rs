@@ -41,7 +41,7 @@ impl LSCOExt for LscoPin {
                 false
             }
         };
-        rcc.unlock_rtc();
+        rcc.unlock_backup_domain();
         rcc.rb.bdcr.modify(|_, w| w.lscosel().bit(src_select_bit));
         Lsco { pin: self }
     }
